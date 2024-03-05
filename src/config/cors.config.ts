@@ -1,7 +1,13 @@
-import { CLIENT_URL } from "src/constants";
+import { ConfigService } from '@nestjs/config'
 
-export const corsConfig = {
-  origin: CLIENT_URL,
-  credentials: true,
-  exposedHeaders: 'set-cookie',
-}
+export const getCorsConfig = async (
+	configService: ConfigService
+): Promise<{
+	origin: string
+	credentials: boolean
+	exposeHeaders: string
+}> => ({
+	origin: configService.get('CLIENT_URL'),
+	credentials: true,
+	exposeHeaders: 'Content-Disposition'
+})
